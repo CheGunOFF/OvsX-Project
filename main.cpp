@@ -11,7 +11,6 @@ void resetSlot();
 bool vectorTest(bool arg);
 void tempCrossCircle();
 void selectAndWrite(int slotNum);
-
 sf::RenderWindow window(VideoMode(320, 350), L"OvsX", Style::Default);
 
 sf::RectangleShape rect;
@@ -31,9 +30,10 @@ sf::Text playerText;
 char slot[9] = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 string rating[10][2] = {};
 bool playerSlot[] = {false, false};
+bool boolMenu = false;
 
 
-bool playerTester = true;
+bool playerTester = false;
 
 const int SIZE = 9;
 
@@ -137,6 +137,7 @@ void tempCrossCircle() {
 }
 int menu()
 {
+    boolMenu = true;
     int mPosx;
     int mPosy;
 
@@ -199,6 +200,9 @@ int menu()
         rect3.setPosition(Vector2f(-110, 10)); // hide if not 
 
     }
+    boolMenu = false;
+
+    sleep(milliseconds(50));
     return 0;
 }
 bool vectorTest(bool arg) {
@@ -502,19 +506,19 @@ void selectAndWrite(int slotNum)
                 playerSlot[1] = true;
                 playerSlot[0] = false;
                 //slotSwitcher(0);
-                winnerCheck(0, slotNum,'x');
+                //winnerCheck(0, slotNum,'x');
             }
             else if (playerSlot[1] == true) {
                 slot[slotNum] = 'o';
                 playerSlot[0] = true;
                 playerSlot[1] = false;
                 //slotSwitcher(1);
-                winnerCheck(1, slotNum,'o');
+                //winnerCheck(1, slotNum,'o');
 
             }
         }
     else {
-        if (playerTester && sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+        if (boolMenu == false && playerTester == true && sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
             slot[slotNum] = ' ';
         }
         // error message
